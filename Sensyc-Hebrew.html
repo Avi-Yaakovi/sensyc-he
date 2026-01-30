@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensyc: לפענח את ה-DNA של המכירות שלך</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Palette: Future Tech & Trust
+         Primary: #2563EB (Blue)
+         Secondary: #06B6D4 (Cyan)
+         Accent: #F59E0B (Amber)
+         Background: #F3F4F6 (Light Gray)
+    -->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200;400;700;800&display=swap');
+        
+        body {
+            font-family: 'Assistant', sans-serif;
+        }
+
+        /* Custom Chart Container Styles */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Flowchart Connector Lines (CSS only, NO SVG) */
+        .flow-line-vertical {
+            width: 4px;
+            background-color: #CBD5E1;
+            height: 40px;
+            margin: 0 auto;
+        }
+        .flow-arrow-down {
+            width: 0; 
+            height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #CBD5E1;
+            margin: 0 auto;
+        }
+    </style>
+    <!-- 
+    NARRATIVE PLAN (HEBREW VERSION):
+    1. הבעיה: ה"קופסה השחורה" של המכירות (תרשים: דאטה פאסיבי מול אקטיבי).
+    2. הפתרון: ארכיטקטורת המנוע של Sensyc (תרשים זרימה HTML: קלט -> AI -> פלט).
+    3. פיצ'ר מפתח: סגירת פער הביצוע (תרשים: פער הפעולה).
+    4. ניתוח עומק: סנטימנט ויכולות (תרשים: רדאר).
+    5. ROI ואימפקט: צמיחה והחזר השקעה (תרשים: מגמת צמיחה).
+    
+    CONFIRMATION:
+    - NO SVG used.
+    - NO Mermaid JS used.
+    - RTL layout applied.
+    -->
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-600 text-white py-16 px-4 shadow-lg">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight">sensyc</h1>
+            <p class="text-xl md:text-2xl font-light text-blue-100 max-w-3xl mx-auto">
+                משיחות לסגירת עסקאות. <br>
+                <span class="font-semibold text-amber-300">לפענח את ה-DNA של המכירות שלך.</span>
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-20">
+
+        <!-- Section 1: The Problem (Blind Spots) -->
+        <section>
+            <div class="mb-8 text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">ה"קופסה השחורה" של המכירות</h2>
+                <p class="text-lg text-slate-600">
+                    ארגונים היום טובעים בנתונים אבל צמאים לתובנות. טרה-בייטים של שיחות מכירה וצ'אטים נשמרים מדי יום, ויוצרים "שטחים מתים" שבהם הולכים לאיבוד משובים יקרא ערך והזדמנויות עסקיות.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- Card 1: The Stat -->
+                <div class="bg-white rounded-2xl shadow-md p-8 border-r-8 border-blue-600 h-full flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-700">עומס של "דאטה פאסיבי"</h3>
+                    <p class="text-slate-600 mb-6">
+                        רוב החברות אוספות נתונים בערוצים שונים (טלפון, צ'אט, מייל), אך חסרות את היכולת לנתח אותם בהיקף נרחב. התוצאה היא "דאטה פאסיבי" – מידע שקיים אך אינו מספק ערך.
+                    </p>
+                    <div class="text-6xl font-bold text-blue-600 mb-2">90%</div>
+                    <div class="text-lg font-medium text-slate-500">מאינטראקציות המכירה לא מנותחות</div>
+                </div>
+
+                <!-- Card 2: Chart -->
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-slate-700 mb-4 text-center">מציאות ניצול הנתונים</h3>
+                    <div class="chart-container">
+                        <canvas id="chartPassiveData"></canvas>
+                    </div>
+                    <p class="text-sm text-slate-500 text-center mt-4 italic">
+                        מרבית המודיעין העסקי שלכם נעול בארכיון ה-"Dark Data".
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: The Solution Architecture -->
+        <section>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">המנוע של Sensyc</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    מוח מרכזי למערך המכירות שלכם. Sensyc מתחברת לכל הערוצים בשיטת "Plug & Play", מעבדת אינטראקציות באמצעות AI מתקדם, ומייצרת משימות אופרטיביות.
+                </p>
+            </div>
+
+            <!-- CSS Grid Flowchart (No SVG) -->
+            <div class="relative bg-white rounded-3xl shadow-xl p-8 md:p-12 overflow-hidden">
+                <div class="absolute top-0 right-0 w-full h-2 bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative z-10">
+                    
+                    <!-- Step 1: Input -->
+                    <div class="flex flex-col items-center">
+                        <div class="text-6xl mb-4">📡</div>
+                        <h3 class="text-xl font-bold text-blue-700 mb-2">קלט רב-ערוצי</h3>
+                        <div class="bg-slate-100 p-4 rounded-xl w-full max-w-xs space-y-2">
+                            <div class="flex items-center space-x-2"><span class="text-2xl">📞</span> <span class="text-sm font-semibold">מרכזיות וטלפוניה</span></div>
+                            <div class="flex items-center space-x-2"><span class="text-2xl">💬</span> <span class="text-sm font-semibold">צ'אט חי ובוטים</span></div>
+                            <div class="flex items-center space-x-2"><span class="text-2xl">📧</span> <span class="text-sm font-semibold">מייל ו-CRM</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow Mobile (Down) / Desktop (Left/RTL) -->
+                    <div class="hidden md:flex flex-col justify-center items-center">
+                        <div class="text-4xl text-slate-300 transform rotate-180">➤</div>
+                        <div class="text-sm font-bold text-blue-600 mt-2">סנכרון ועיבוד</div>
+                    </div>
+                    <div class="md:hidden flex justify-center py-4">
+                        <div class="text-4xl text-slate-300">⬇</div>
+                    </div>
+
+                    <!-- Step 2: Processing -->
+                    <div class="flex flex-col items-center">
+                        <div class="text-6xl mb-4">🧠</div>
+                        <h3 class="text-xl font-bold text-blue-700 mb-2">ליבת עיבוד AI</h3>
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl w-full max-w-xs shadow-inner">
+                            <ul class="text-right text-sm space-y-2">
+                                <li class="flex items-start"><span class="text-blue-500 ml-2">●</span> תמלול ברמת דיוק גבוהה</li>
+                                <li class="flex items-start"><span class="text-blue-500 ml-2">●</span> אינדוקס Multi-LLM</li>
+                                <li class="flex items-start"><span class="text-blue-500 ml-2">●</span> ניתוח סנטימנט</li>
+                                <li class="flex items-start"><span class="text-blue-500 ml-2">●</span> מנוע לוגיקה מותאם</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                     <!-- Arrow Mobile (Down) / Desktop (Left/RTL) -->
+                     <div class="hidden md:col-start-2 md:col-end-3 md:flex flex-col justify-center items-center mt-8">
+                        <div class="text-4xl text-slate-300 transform rotate-90">➤</div>
+                        <div class="text-sm font-bold text-amber-500 mt-2">ייצור ערך</div>
+                    </div>
+                     <div class="md:hidden flex justify-center py-4">
+                        <div class="text-4xl text-slate-300">⬇</div>
+                    </div>
+
+                    <!-- Step 3: Output -->
+                    <div class="md:col-start-2 md:col-end-3 flex flex-col items-center mt-4">
+                        <div class="text-6xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold text-blue-700 mb-2">פלט אופרטיבי</h3>
+                        <div class="bg-gradient-to-br from-amber-50 to-white border border-amber-200 p-4 rounded-xl w-full max-w-xs shadow-lg">
+                            <div class="font-bold text-amber-700 mb-2">תוצאות אוטומטיות:</div>
+                            <div class="grid grid-cols-2 gap-2 text-center text-xs font-bold">
+                                <div class="bg-white p-2 rounded shadow text-slate-700">✅ משימות CRM</div>
+                                <div class="bg-white p-2 rounded shadow text-slate-700">📊 דוחות KPI</div>
+                                <div class="bg-white p-2 rounded shadow text-slate-700">🔔 התראות</div>
+                                <div class="bg-white p-2 rounded shadow text-slate-700">💡 אסטרטגיה</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Killer Feature (Insights to Tasks) -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="order-2 lg:order-1">
+                <div class="bg-white rounded-2xl shadow-md p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-slate-700">סגירת "פער הפעולה"</h3>
+                        <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full">נתוני אמת</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartActionGap"></canvas>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-4">
+                        <strong>ניתוח:</strong> ללא Sensyc (מימין), תובנות כמו "הלקוח ביקש שיחזרו אליו" מתפספסות לעיתים קרובות. עם Sensyc (משמאל), אלו הופכות אוטומטית למשימות, מה שמבטיח כמעט 100% מעקב.
+                    </p>
+                </div>
+            </div>
+            <div class="order-1 lg:order-2">
+                <div class="inline-block bg-amber-100 text-amber-800 font-bold px-4 py-2 rounded-full mb-4 shadow-sm">
+                    ⚡ הפיצ'ר המנצח
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">מ"שיחות" ל"משימות"</h2>
+                <p class="text-lg text-slate-600 mb-6">
+                    Sensyc לא רק מציגה לכם דוחות; היא **מחלקת עבודה**. היא מגשרת על הפער בין תובנה לביצוע על ידי יצירת משימות אוטומטיות ב-CRM, Jira או Monday בהתבסס על טריגרים בשיחה.
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div class="bg-blue-600 text-white rounded-full p-1 ml-3 mt-1 text-xs">✔</div>
+                        <div>
+                            <strong class="text-slate-800">טריגרים הקשריים:</strong>
+                            <p class="text-sm text-slate-500">"שלחו לי הצעה שבוע הבא" יוצר אוטומטית תזכורת ליום שלישי הקרוב.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="bg-blue-600 text-white rounded-full p-1 ml-3 mt-1 text-xs">✔</div>
+                        <div>
+                            <strong class="text-slate-800">מניעת נטישה (Churn):</strong>
+                            <p class="text-sm text-slate-500">זיהוי סנטימנט שלילי מתייג מיידית מנהל להתערבות בשיחה.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4: Deep Dive Data & Custom KPIs -->
+        <section>
+            <div class="mb-10 text-center md:text-right">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4">מעבר למדדים גנריים</h2>
+                <p class="text-lg text-slate-600 max-w-4xl">
+                    כל עסק הוא ייחודי. Sensyc מאפשרת להגדיר **KPIs בהתאמה אישית** ולתשאל את הנתונים בשפה חופשית. למטה ניתן לראות פרופיל אינטליגנציה רגשית של נציג מכירות שהופק ממאות שיחות.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Chart: Sentiment Radar -->
+                <div class="md:col-span-2 bg-white rounded-2xl shadow-md p-6">
+                    <h3 class="text-lg font-bold text-slate-700 mb-4 text-center">ניתוח נציג: פרופיל "The Closer"</h3>
+                    <div class="chart-container">
+                        <canvas id="chartSentiment"></canvas>
+                    </div>
+                </div>
+
+                <!-- Feature: Ask Your Data Simulation -->
+                <div class="bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl shadow-xl p-6 text-white flex flex-col">
+                    <div class="mb-4 flex items-center">
+                        <span class="text-2xl ml-2">💬</span>
+                        <h3 class="text-xl font-bold">שאלו את הדאטה שלכם</h3>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-6">
+                        לא צריך שאילתות SQL. פשוט שאלו את Sensyc כמו עמית לעבודה.
+                    </p>
+                    
+                    <!-- Chat Simulation -->
+                    <div class="flex-grow space-y-4 font-mono text-sm">
+                        <!-- User Msg -->
+                        <div class="flex justify-start">
+                            <div class="bg-blue-600 text-white p-3 rounded-r-xl rounded-tl-xl max-w-[90%] shadow-lg">
+                                למה הפסדנו את עסקת Acme Corp?
+                            </div>
+                        </div>
+                        <!-- Bot Msg -->
+                        <div class="flex justify-end text-left">
+                            <div class="bg-slate-700 text-slate-200 p-3 rounded-l-xl rounded-tr-xl max-w-[90%] shadow-lg">
+                                <span class="text-amber-400 font-bold block mb-1">🤖 Sensyc AI</span>
+                                ניתוח של 3 שיחות מראה התנגדות למחיר. מתחרה X הציע תעריפים נמוכים ב-15%. הסנטימנט היה חיובי עד לדיון על המחיר.
+                            </div>
+                        </div>
+                         <!-- User Msg -->
+                         <div class="flex justify-start">
+                            <div class="bg-blue-600 text-white p-3 rounded-r-xl rounded-tl-xl max-w-[90%] shadow-lg">
+                                הצג לי מגמות של התנגדויות מחיר.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: ROI & Conclusion -->
+        <section class="bg-white rounded-3xl shadow-xl p-8 md:p-12 border-t-8 border-amber-400">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 mb-6">בשורה התחתונה</h2>
+                    <p class="text-lg text-slate-600 mb-8">
+                        Sensyc משנה את רצפת המכירות שלכם. על ידי אוטומציה של המשימות השגרתיות והדגשת הרגעים הקריטיים, אנו מייצרים צמיחה ויעילות מדידה.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-xl text-center">
+                            <div class="text-4xl font-extrabold text-blue-600">80%</div>
+                            <div class="text-sm font-bold text-slate-600 uppercase mt-1">פחות זמן בקרה</div>
+                            <div class="text-xs text-slate-500">צמצום האזנה ידנית לשיחות</div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-xl text-center">
+                            <div class="text-4xl font-extrabold text-green-600">15%</div>
+                            <div class="text-sm font-bold text-slate-600 uppercase mt-1">גידול בהכנסות</div>
+                            <div class="text-xs text-slate-500">עלייה באחוזי ההמרה</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-slate-700 mb-4 text-center">אימפקט ההכנסות: לפני מול אחרי Sensyc</h3>
+                    <div class="chart-container h-64">
+                        <canvas id="chartRoi"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center mt-12">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-2xl font-bold text-white mb-6">תפסיקו לנחש. תתחילו לסגור.</h2>
+            <button class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-8 rounded-full shadow-lg transition transform hover:scale-105">
+                תיאום דמו בשידור חי
+            </button>
+            <p class="mt-8 text-sm">
+                &copy; 2024 Sensyc. כל הזכויות שמורות. <br>
+                מופעל על ידי בינה מלאכותית מתקדמת.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Set Default Font for Chart.js
+        Chart.defaults.font.family = "'Assistant', sans-serif";
+
+        // ---------------------------------------------------------
+        // Utility Function: Label Wrapping (Max 16 chars per line)
+        // ---------------------------------------------------------
+        function splitLabel(label) {
+            if (label.length <= 16) return label;
+            
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length <= 16) {
+                    currentLine += " " + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // ---------------------------------------------------------
+        // Utility: Tooltip Configuration for Multiline Labels
+        // ---------------------------------------------------------
+        const tooltipPlugin = {
+            tooltip: {
+                backgroundColor: 'rgba(17, 24, 39, 0.9)', 
+                rtl: true,
+                titleFont: { size: 14, weight: 'bold' },
+                bodyFont: { size: 13 },
+                padding: 12,
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        // ---------------------------------------------------------
+        // Chart 1: Passive Data (Doughnut)
+        // ---------------------------------------------------------
+        const ctxPassive = document.getElementById('chartPassiveData').getContext('2d');
+        new Chart(ctxPassive, {
+            type: 'doughnut',
+            data: {
+                labels: ['מידע "חשוך" לא מנותח', 'מידע מנותח ובשימוש'],
+                datasets: [{
+                    data: [90, 10],
+                    backgroundColor: ['#CBD5E1', '#2563EB'], 
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    ...tooltipPlugin,
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { size: 12 }, usePointStyle: true }
+                    }
+                }
+            }
+        });
+
+        // ---------------------------------------------------------
+        // Chart 2: The Action Gap (Bar Chart)
+        // ---------------------------------------------------------
+        const ctxAction = document.getElementById('chartActionGap').getContext('2d');
+        const labelsAction = [
+            'בקשות מעקב שזוהו', 
+            'משימות שנוצרו בפועל', 
+            'מעקב מוצלח'
+        ].map(splitLabel);
+
+        new Chart(ctxAction, {
+            type: 'bar',
+            data: {
+                labels: labelsAction,
+                datasets: [
+                    {
+                        label: 'כלי סטנדרטי',
+                        data: [100, 20, 15],
+                        backgroundColor: '#94A3B8', 
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'עם Sensyc',
+                        data: [100, 100, 85],
+                        backgroundColor: '#F59E0B', 
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipPlugin,
+                    legend: { position: 'top' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        position: 'right',
+                        title: { display: true, text: 'אחוזים (%)' },
+                        max: 110
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ---------------------------------------------------------
+        // Chart 3: Sentiment & Skills Radar (Radar Chart)
+        // ---------------------------------------------------------
+        const ctxSentiment = document.getElementById('chartSentiment').getContext('2d');
+        const labelsSentiment = [
+            'ציון אמפתיה', 
+            'טיפול בהתנגדויות', 
+            'טכניקת סגירה', 
+            'סבלנות והקשבה', 
+            'ידע במוצר', 
+            'סנטימנט חיובי'
+        ].map(splitLabel);
+
+        new Chart(ctxSentiment, {
+            type: 'radar',
+            data: {
+                labels: labelsSentiment,
+                datasets: [{
+                    label: 'נציג מצטיין (Sensyc Benchmark)',
+                    data: [90, 95, 88, 85, 92, 80],
+                    fill: true,
+                    backgroundColor: 'rgba(37, 99, 235, 0.2)', 
+                    borderColor: '#2563EB',
+                    pointBackgroundColor: '#2563EB',
+                    pointBorderColor: '#fff'
+                }, {
+                    label: 'נציג ממוצע',
+                    data: [65, 50, 60, 70, 65, 55],
+                    fill: true,
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)', 
+                    borderColor: '#06B6D4',
+                    pointBackgroundColor: '#06B6D4',
+                    pointBorderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipPlugin
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: '#E2E8F0' },
+                        grid: { color: '#E2E8F0' },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ---------------------------------------------------------
+        // Chart 4: ROI Growth (Line Chart)
+        // ---------------------------------------------------------
+        const ctxRoi = document.getElementById('chartRoi').getContext('2d');
+        const labelsRoi = ['חודש 1', 'חודש 2', 'חודש 3', 'חודש 4', 'חודש 5', 'חודש 6'];
+
+        new Chart(ctxRoi, {
+            type: 'line',
+            data: {
+                labels: labelsRoi,
+                datasets: [{
+                    label: 'גידול בהכנסות',
+                    data: [100000, 102000, 105000, 108000, 112000, 115000],
+                    borderColor: '#10B981', 
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    ...tooltipPlugin,
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        position: 'right',
+                        title: { display: true, text: 'הכנסה חודשית ($)' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
